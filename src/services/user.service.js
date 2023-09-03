@@ -3,19 +3,18 @@ import bcrypt from 'bcrypt';
 
 //SignUp new user
 export const signUp = async (body) => {
-  const user = await User.findOne({ email: body.email });
 
-  if (user) {
-    throw new Error("You are already registered !!")
-  }
+  const user = await User.findOne({ email: body.email });
+  if (user) { throw new Error("You are already registered !!") }
 
   const saltRounds = 10;
-  const hash = bcrypt.hashSync(body.password, saltRounds);
-  body.password = hash;
+  const hashPass = bcrypt.hashSync(body.password, saltRounds);
+  body.password = hashPass;
 
   const data = await User.create(body);
-
-  const {firstName, lastName, email} = data;
-
-  return {firstName, lastName, email};
+  
+  if(data){
+    const {firstName, lastName, email} = data;
+    return {firstName, lastName, email};
+  }else{ throw new Error("Unable to register !!") }
 };
