@@ -7,7 +7,7 @@ export const getAllBooks = async (req, res, next) => {
       res.status(HttpStatus.OK).json({
         code: HttpStatus.OK,
         data: data,
-        message: 'Notes fetched successfully'
+        message: 'Books fetched successfully'
       });
     } catch (error) {
       res.status(HttpStatus.BAD_REQUEST).json({
