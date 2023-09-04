@@ -43,13 +43,10 @@ export const signIn = async (body) => {
 
 //reset password
 export const resetPassword = async (password, id) => {
-  console.log("his is the id in services",id)
   const saltRounds = 10;
   const hash = bcrypt.hashSync(password, saltRounds);
   password = hash;
-  const update = {
-    password: password
-  }
+  const update = { password: password }
   const data = await User.findByIdAndUpdate({ _id: id }, update, {
     new: true
   });
@@ -58,4 +55,17 @@ export const resetPassword = async (password, id) => {
   } else {
     throw new Error("Unable to reset Password");
   }
+};
+
+
+//forgot password
+export const forgotPassword = async (email) => {
+  
+  const data = await User.find({email: email  });
+  if (data) {
+    var token = jwt.sign({ email: data.email, id: data.id }, process.env.SECRET_KEY);
+    return token;
+  } else {
+    throw new Error("Unable to change Password");
+  };
 };

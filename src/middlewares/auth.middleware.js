@@ -22,7 +22,6 @@ export const userAuth = async (req, res, next) => {
 
     const user = jwt.verify(bearerToken, process.env.SECRET_KEY);
     req.body.createdBy = user.id
-    console.log("this is the user id after verfy",user.id)
 
     next();
   } catch (error) {
