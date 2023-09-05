@@ -7,4 +7,7 @@ const router = express.Router();
 // to get note
 router.get('', userAuth, booksController.getAllBooks);
 
+// to get note
+router.get('/sortAsc', userAuth, booksController.getSortedAscBooks);
+
 export default router;
