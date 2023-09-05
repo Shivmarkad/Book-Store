@@ -1,3 +1,4 @@
+import { error } from "@hapi/joi/lib/base";
 import Book from "../models/book.model";
 
 export const getAllBooks = async (req) => {
@@ -21,4 +22,16 @@ export const getSortedAscBooks = async (req) => {
     return book;
   };
   throw new Error("Unable to find");
+};
+
+
+export const searchBook = async (req) => {
+
+  var reg = new RegExp(req.params.name, 'i')
+
+  const books = await Book.find({bookName: reg})
+  if(books)  return books;
+  
+  throw new Error("books note found");
+
 };
