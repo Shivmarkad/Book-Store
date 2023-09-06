@@ -105,6 +105,34 @@
             }
           }]
         }
+      },
+      "/users/forgot": {
+        "post": {
+          "tags": ["Users Part"],
+          "description": "Forgot password..",
+          "parameters": [
+            {
+              "name": "Forgot Password",
+              "in": "body",
+              "description": "Forgot Password",
+              "schema": {
+                "$ref": "#/definitions/Forgot"
+              }
+            }
+          ],
+          "produces": ["application/token"],
+          "responses": {
+            "200": {
+              "description": "Token generated successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
       }
     },
       "definitions":{
@@ -143,6 +171,14 @@
                 "type":"string"
               }
             }
+            },
+        "Forgot":{
+            "type":"object",
+            "properties":{
+                "email":{
+                    "type":"string"
+                }
+                }
             }
         },
       "securityDefinitions":{
