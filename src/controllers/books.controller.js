@@ -7,8 +7,45 @@ export const getAllBooks = async (req, res, next) => {
       res.status(HttpStatus.OK).json({
         code: HttpStatus.OK,
         data: data,
-        message: 'Notes fetched successfully'
+        message: 'Books fetched successfully'
       });
+    } catch (error) {
+      res.status(HttpStatus.BAD_REQUEST).json({
+        code: HttpStatus.BAD_REQUEST,
+        message: `${error}`
+      });
+    }
+  };
+
+export const getSortedAscBooks = async (req, res, next) => {
+    try {
+      const data = await books.getSortedAscBooks(req);
+      res.status(HttpStatus.OK).json({
+        code: HttpStatus.OK,
+        data: data,
+        message: 'Sorted Books fetched successfully'
+      });
+    } catch (error) {
+      res.status(HttpStatus.BAD_REQUEST).json({
+        code: HttpStatus.BAD_REQUEST,
+        message: `${error}`
+      });
+    }
+  };
+
+export const searchBook = async (req, res, next) => {
+    try {
+      const data = await books.searchBook(req);
+      
+      console.log("thi si the search",data)
+      res.status(HttpStatus.OK).json({
+        code: HttpStatus.OK,
+        data: data,
+        message: 'Searched Books fetched successfully'
+      });
+
+
+
     } catch (error) {
       res.status(HttpStatus.BAD_REQUEST).json({
         code: HttpStatus.BAD_REQUEST,
