@@ -72,6 +72,39 @@
             }
           }
         }
+      },
+      "/users/reset": {
+        "post": {
+          "tags": ["Users Part"],
+          "description": "Reset password..",
+          "parameters": [
+            {
+              "name": "Reset Password",
+              "in": "body",
+              "description": "Reset",
+              "schema": {
+                "$ref": "#/definitions/Reset"
+              }
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Password Changed successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "security":[{
+            "BearerAuth":{
+                "ref":"#/securityDefinitions"
+            }
+          }]
+        }
       }
     },
       "definitions":{
@@ -102,8 +135,15 @@
                 }
             }
 
-        }
-       
+        },
+        "Reset":{
+            "type":"object",
+            "properties":{
+              "password":{
+                "type":"string"
+              }
+            }
+            }
         },
       "securityDefinitions":{
         "BearerAuth":{
