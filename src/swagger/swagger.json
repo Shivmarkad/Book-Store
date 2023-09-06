@@ -44,6 +44,34 @@
             }
           }
         }
+      },
+      "/users/login": {
+        "post": {
+          "tags": ["Users Part"],
+          "description": "login user...",
+          "parameters": [
+            {
+              "name": "login user",
+              "in": "body",
+              "description": "login",
+              "schema": {
+                "$ref": "#/definitions/Login"
+              }
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "User signed in successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
       }
     },
       "definitions":{
@@ -62,7 +90,19 @@
                 "password":{
                     "type":"string"
                 }
-            }}
+            }},
+        "Login":{
+            "type":"object",
+            "properties":{
+                "email":{
+                    "type":"string"
+                },
+                "password":{
+                    "type":"string"
+                }
+            }
+
+        }
        
         },
       "securityDefinitions":{
