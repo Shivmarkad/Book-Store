@@ -17,9 +17,9 @@ export const getAllBooks = async (req, res, next) => {
     }
   };
 
-export const getSortedAscBooks = async (req, res, next) => {
+export const getSortedBooks = async (req, res, next) => {
     try {
-      const data = await books.getSortedAscBooks(req);
+      const data = await books.getSortedBooks(req);
       res.status(HttpStatus.OK).json({
         code: HttpStatus.OK,
         data: data,
