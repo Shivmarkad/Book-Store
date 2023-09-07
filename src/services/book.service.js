@@ -13,11 +13,14 @@ export const getAllBooks = async (req) => {
 };
 
 
-export const getSortedAscBooks = async (req) => {
-  const book = await Book.find().sort({ price: 1 });
-  if (book) {
-    return book;
-  };
+export const getSortedBooks = async (req) => {
+  let books;
+  if(req.body.sortPara == 'Ascending'){
+    books = await Book.find().sort({ price: 1 });
+  }else if(req.body.sortPara == 'Descending'){
+    books = await Book.find().sort({ price: -1 })
+  }
+  if (books) { return books;  };
   throw new Error("Unable to find");
 };
 
