@@ -13,7 +13,7 @@ export const addBookToCart = async (req, res, next) =>{
     catch(error){
         res.status(HttpStatus.BAD_REQUEST).json({
             code: HttpStatus.BAD_REQUEST,
-            message: `error while book in the cart ${error}`
+            message: `error while adding book in the cart ${error}`
         })
     }
 }
