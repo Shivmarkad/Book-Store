@@ -4,6 +4,7 @@ import * as cartController from '../controllers/carts.controller';
 
 const router = express.Router();
 
-router.post('',userAuth,cartController.addBookToCart)
+//route to add book in the cart
+router.post('/:bookId',userAuth,cartController.addBookToCart)
 
 export default router;
