@@ -6,9 +6,7 @@ export const addBookToCart = async (req) =>{
     const user_id = req.body.user_id;
 
     const getBook = await Book.findOne({_id: bookId})
-    if(getBook == null){
-        throw new Error("Book not availble or invalid book id")
-    }
+    if(getBook == null || getBook.quantity){ throw new Error("Book not availble or invalid book id") }
 
     const getUserCart = await Cart.findOne({userId: user_id})
 
