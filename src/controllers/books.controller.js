@@ -7,7 +7,7 @@ export const getAllBooks = async (req, res, next) => {
       res.status(HttpStatus.OK).json({
         code: HttpStatus.OK,
         data: data,
-        message: 'Books fetched successfully'
+        message: `On page ${req.query.page || 1} total ${req.query.limit || 4} Books fetched successfully`
       });
     } catch (error) {
       res.status(HttpStatus.BAD_REQUEST).json({
@@ -37,7 +37,6 @@ export const searchBook = async (req, res, next) => {
     try {
       const data = await books.searchBook(req);
       
-      console.log("thi si the search",data)
       res.status(HttpStatus.OK).json({
         code: HttpStatus.OK,
         data: data,

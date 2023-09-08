@@ -1,4 +1,5 @@
 import Book from "../models/book.model";
+import { client } from '../config/redis';
 
 export const getAllBooks = async (req) => {
 
@@ -6,9 +7,14 @@ export const getAllBooks = async (req) => {
   let limit = Number(req.query.limit) || 4;
   let skip = (page - 1)* limit;
   
-  const book = await Book.find().skip(skip).limit(limit);
+  const book = await Book.find();
 
-  if (book) {    return book;  };
+  if (book) {
+    const books = JSON.stringify(book)
+    await client.set(req.body.user_id, books)
+    await client.expire(req.body.user_id,10)
+    return book.slice(skip,skip + limit);
+  };
   throw new Error("Unable to find");
 };
 
