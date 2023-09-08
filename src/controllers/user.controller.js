@@ -45,7 +45,7 @@ export const signIn = async (req, res, next) => {
 
 export const resetPassword = async (req, res, next) => {
   try {
-    const data = await UserService.resetPassword(req.body.password, req.body.createdBy);
+    const data = await UserService.resetPassword(req.body.password, req.body.user_id);
     res.status(HttpStatus.OK).json({
       code: HttpStatus.OK,
       data: data,
