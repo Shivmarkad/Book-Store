@@ -36,6 +36,10 @@ const cartSchema = new Schema({
   isPurchased: {
     type: Boolean,
     default: false
+  },
+  totalCartPrice: {
+    type: Number,
+    default: 0
   }
 });
 
