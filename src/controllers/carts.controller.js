@@ -21,8 +21,8 @@ export const addBookToCart = async (req, res, next) =>{
 export const deleteBookFromCart = async (req, res, next) =>{
     try{
         const data = await cart.deleteBookFromCart(req.body.user_id, req.params.bookId);
-        res.status(HttpStatus.NO_CONTENT).json({
-            code:HttpStatus.NO_CONTENT,
+        res.status(HttpStatus.OK).json({
+            code:HttpStatus.OK,
             data:data,
             message:"Book deleted from cart successfully"
         })
