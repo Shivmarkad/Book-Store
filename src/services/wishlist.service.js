@@ -28,3 +28,18 @@ export const addBookToWishList = async (userId, bookId) => {
     const newBookToWishlist = await Wishlist.findByIdAndUpdate({ _id: userWishList._id }, { books: books }, { new: true })
     return newBookToWishlist;
 }
+
+export const removeBookFromWishList = async (userId, bookId)=>{
+    const userWishList = await Wishlist.findOne({userId: userId});
+    if(userWishList == null){ throw new Error("Wishlist is Empty!!")}
+
+    const books = userWishList.books;
+    for (let i in books) {
+        if (books[i].productId == bookId) {
+            books.splice(i,1)
+            const newBookToWishlist = await Wishlist.findByIdAndUpdate({ _id: userWishList._id }, { books: books }, { new: true })
+            return newBookToWishlist;
+        }
+    }
+    throw new Error("Book not in wishist !!")
+}
