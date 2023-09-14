@@ -133,6 +133,30 @@
             }
           }
         }
+      },
+      "/book": {
+        "get": {
+          "tags": ["Book Part"],
+          "description": "Get Books..",
+
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Books fetched successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "security":[{
+            "BearerAuth":{
+                "ref":"#/securityDefinitions"
+            }
+          }]
+        }
       }
     },
       "definitions":{
