@@ -3,7 +3,9 @@
   "parser": "babel-eslint",
   "extends": ["plugin:prettier/recommended"],
   "rules": {
-    "no-console": 0,
+    "consistent-return":"error",
+    "curly": ["error", "multi"],
+    "no-console": "error",
     "no-unused-vars": "error",
     "quotes": [
       "error",
