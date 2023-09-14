@@ -70,4 +70,22 @@ export const logStream = {
   }
 };
 
+export const userlogger = winston.createLogger({
+  format: format.combine(format.timestamp(), format.json()),
+  colorize:true,
+  transports: [
+    new winston.transports.File({
+      filename: 'logs/users/all.log',
+      level: 'debug',
+      handleExceptions: true
+    }),
+    new winston.transports.File({
+      filename: 'logs/users/error.log',
+      level: 'error',
+      handleExceptions: true
+    })
+  ]
+});
+
+
 export default logger;
