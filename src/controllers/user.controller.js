@@ -1,5 +1,6 @@
 import HttpStatus from 'http-status-codes';
 import * as UserService from '../services/user.service';
+import { userlogger } from '../config/logger'
 
 /**
  * Controller to signUp
@@ -11,13 +12,14 @@ export const signUp = async (req, res, next) => {
   try {
     const data = await UserService.signUp(req.body);
 
+    userlogger.info(`New user resistered: ${data._id}`)
     res.status(HttpStatus.CREATED).json({
       code: HttpStatus.CREATED,
       data: data,
       message: 'Registered successfully'
     });
-
   } catch (error) {
+    userlogger.error(`Error while user resistration: ${error}`)
     res.status(HttpStatus.BAD_REQUEST).json({
       code: HttpStatus.BAD_REQUEST,
       message: `${error}`
