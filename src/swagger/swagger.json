@@ -133,6 +133,60 @@
             }
           }
         }
+      },
+      "/book": {
+        "get": {
+          "tags": ["Book Part"],
+          "description": "Get Books..",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Books fetched successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "security":[{
+            "BearerAuth":{
+                "ref":"#/securityDefinitions"
+            }
+          }]
+        }
+      },
+      "/book/{sort}": {
+        "get": {
+          "tags": ["Book Part"],
+          "description": "Get Sorted Books by Price..",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "sort",
+              "required":true,
+              "in": "path",
+              "description": "Sorted Ascending or Descending"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Sorted Books By Price fetched successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "security":[{
+            "BearerAuth":{
+                "ref":"#/securityDefinitions"
+            }
+          }]
+        }
       }
     },
       "definitions":{
