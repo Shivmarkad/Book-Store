@@ -19,11 +19,11 @@ export const getAllBooks = async (req) => {
 };
 
 
-export const getSortedBooks = async (req) => {
+export const getSortedBooks = async (sort) => {
   let books;
-  if(req.body.sortPara == 'Ascending'){
+  if(sort == 'asc'){
     books = await Book.find().sort({ price: 1 });
-  }else if(req.body.sortPara == 'Descending'){
+  }else if(sort == 'desc'){
     books = await Book.find().sort({ price: -1 })
   }
   if (books) { return books;  };
