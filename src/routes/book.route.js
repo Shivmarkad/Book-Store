@@ -9,9 +9,9 @@ const router = express.Router();
 router.get('', userAuth, redisData, booksController.getAllBooks);
 
 // to get sorted books in ascending
-router.get('/:sort', userAuth, booksController.getSortedBooks);
+router.get('/search', userAuth, booksController.searchBook);
 
 // to get sorted books in ascending
-router.get('/search', userAuth, booksController.searchBook);
+router.get('/:sort', userAuth, booksController.getSortedBooks);
 
 export default router;
