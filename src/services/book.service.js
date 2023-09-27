@@ -6,7 +6,7 @@ export const getAllBooks = async (req) => {
   let page = Number(req.query.page) || 1;
   let limit = Number(req.query.limit) || 4;
   let skip = (page - 1)* limit;
-  
+  console.log("this ")
   const book = await Book.find();
 
   if (book) {
@@ -27,9 +27,8 @@ export const getSortedBooks = async (sort) => {
     books = await Book.find().sort({ price: -1 })
   }
   if (books) { return books;  };
-  throw new Error("Unable to find");
+  throw new Error("Unable to find sorted books");
 };
-
 
 export const searchBook = async (req) => {
 
@@ -40,4 +39,12 @@ export const searchBook = async (req) => {
 
   throw new Error("books note found");
 
+};
+
+export const getHigherPriceBooks = async (price) => {
+
+  const books = await Book.aggregate([{ $match: { price: { $gte: price } } }]);
+  if(books)  return books;
+
+  throw new Error("books note found");
 };
