@@ -30,8 +30,6 @@ export const signIn = async (body) => {
 
   const hashedPassword = user.password;
   const isTrue = bcrypt.compareSync(body.password, hashedPassword);
-  console.log(user.id)
-
   if (isTrue) {
     var token = jwt.sign({ email: user.email, id: user.id }, process.env.SECRET_KEY);
     return token;

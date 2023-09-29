@@ -6,7 +6,6 @@ export const getAllBooks = async (req) => {
   let page = Number(req.query.page) || 1;
   let limit = Number(req.query.limit) || 4;
   let skip = (page - 1)* limit;
-  console.log("this ")
   const book = await Book.find();
 
   if (book) {
