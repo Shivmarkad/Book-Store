@@ -52,3 +52,20 @@ export const searchBook = async (req, res, next) => {
       });
     }
   };
+
+export const getHigherPriceBooks = async (req, res, next) => {
+    try {
+      const data = await books.getHigherPriceBooks(req.body.price);
+      
+      res.status(HttpStatus.OK).json({
+        code: HttpStatus.OK,
+        data: data,
+        message: 'Books with higher price fetched successfully'
+      });
+    } catch (error) {
+      res.status(HttpStatus.BAD_REQUEST).json({
+        code: HttpStatus.BAD_REQUEST,
+        message: `${error}`
+      });
+    }
+  };
