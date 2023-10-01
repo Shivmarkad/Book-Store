@@ -74,7 +74,7 @@
         }
       },
       "/users/reset": {
-        "post": {
+        "put": {
           "tags": ["Users Part"],
           "description": "Reset password..",
           "parameters": [
@@ -180,6 +180,242 @@
             "500": {
               "description": "Internal server error"
             }
+          }
+        }
+      },
+      "/book/search": {
+        "post": {
+          "tags": ["Book Part"],
+          "description": "Search Books..",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "search",
+              "required":true,
+              "in": "body",
+              "description": "Search books...",
+              "schema": {
+                "$ref": "#/definitions/Search"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Searched Books fetched successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/book/ghp": {
+        "post": {
+          "tags": ["Book Part"],
+          "description": "Get Higher Price Books..",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "Higher Price Books",
+              "required":true,
+              "in": "body",
+              "description": "Get Higher Price books...",
+              "schema": {
+                "$ref": "#/definitions/HPrice"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Searched Books fetched successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/cart": {
+        "get": {
+          "tags": ["Cart Part"],
+          "description": "Get user cart..",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Cart Fetched successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "security":[{
+            "BearerAuth":{
+                "ref":"#/securityDefinitions"
+            }
+          }]
+        },
+        "put": {
+          "tags": ["Cart Part"],
+          "description": "Purchase books from cart..",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Books purchased successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "security":[{
+            "BearerAuth":{
+                "ref":"#/securityDefinitions"
+            }
+          }]
+        }
+      },
+      "/cart/{bookId}": {
+        "post": {
+          "tags": ["Cart Part"],
+          "description": "Add Book to cart..",
+          "parameters": [
+            {
+              "in":"path",
+              "name": "bookId",
+              "description": "Add Book to Cart"
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Book added in the Cart successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "security":[{
+            "BearerAuth":{
+                "ref":"#/securityDefinitions"
+            }
+          }]
+        },
+        "put": {
+          "tags": ["Cart Part"],
+          "description": "Remove Book from cart..",
+          "parameters": [
+            {
+              "in":"path",
+              "name": "bookId",
+              "description": "Remove Book from cart Cart"
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Removed Book from the Cart successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "security":[{
+            "BearerAuth":{
+                "ref":"#/securityDefinitions"
+            }
+          }]
+        }
+      },
+      "/wishlist": {
+        "get": {
+          "tags": ["Wishlist Part"],
+          "description": "Get user wishlist..",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "User wishlist fetched successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "security":[{
+            "BearerAuth":{
+                "ref":"#/securityDefinitions"
+            }
+          }]
+        }
+      },
+      "/wishlist/{bookId}": {
+        "post": {
+          "tags": ["Wishlist Part"],
+          "description": "Add book to wishlist..",
+          "parameters": [
+            {
+              "in":"path",
+              "name": "bookId",
+              "description": "Add book to wishlist"
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Book added to wishlist successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "security":[{
+            "BearerAuth":{
+                "ref":"#/securityDefinitions"
+            }
+          }]
+        },
+        "put": {
+          "tags": ["Wishlist Part"],
+          "description": "Remove book from wishlist..",
+          "parameters": [
+            {
+              "in":"path",
+              "name": "bookId",
+              "description": "Remove book from wishlist"
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Book removed from wishlist successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
           },
           "security":[{
             "BearerAuth":{
@@ -231,6 +467,22 @@
             "properties":{
                 "email":{
                     "type":"string"
+                }
+                }
+            },
+        "Search":{
+            "type":"object",
+            "properties":{
+                "string":{
+                    "type":"string"
+                }
+                }
+            },
+        "HPrice":{
+            "type":"object",
+            "properties":{
+                "price":{
+                    "type":"number"
                 }
                 }
             }
