@@ -109,6 +109,5 @@ export const getCart = async (user_id) => {
     if (getUserCart == null) {
         throw new Error("Cart not found or cart is empty") 
     }
-    if (purchaseCartBooks) { return purchaseCartBooks }
-    throw new Error("Unable to get cart")
+   return getUserCart;
 }
