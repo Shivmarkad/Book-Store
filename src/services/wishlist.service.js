@@ -43,3 +43,11 @@ export const removeBookFromWishList = async (userId, bookId)=>{
     }
     throw new Error("Book not in wishist !!")
 }
+
+export const getWishlist = async (user_id) => {
+    const getUserWishlist = await Wishlist.findOne({ userId: user_id })
+    if (getUserWishlist == null) {
+        throw new Error("Wishlist not found or wishlist is empty") 
+    }
+    return getUserWishlist;
+}
