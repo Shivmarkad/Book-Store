@@ -51,3 +51,20 @@ export const purchaseOrders = async (req, res, next) => {
         })
     }
 }
+
+export const getCart = async (req, res, next) => {
+    try{
+        const data = await cart.getCart(req.body.user_id);
+        res.status(HttpStatus.OK).json({
+            code:HttpStatus.OK,
+            data:data,
+            message:"Cart fetched successfully"
+        })
+    }
+    catch(error){
+        res.status(HttpStatus.BAD_REQUEST).json({
+            code: HttpStatus.BAD_REQUEST,
+            message: `error while fetching cart ${error}`
+        })
+    }
+}

@@ -102,4 +102,13 @@ export const purchaseOrders = async (user_id) => {
 
     if (purchaseCartBooks) { return purchaseCartBooks }
     throw new Error("Unable to purchase server error")
-} 
+}
+
+export const getCart = async (user_id) => {
+    const getUserCart = await Cart.findOne({ userId: user_id })
+    if (getUserCart == null) {
+        throw new Error("Cart not found or cart is empty") 
+    }
+    if (purchaseCartBooks) { return purchaseCartBooks }
+    throw new Error("Unable to get cart")
+}
