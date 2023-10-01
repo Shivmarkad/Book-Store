@@ -11,9 +11,6 @@ router.get('', userAuth, redisData, booksController.getAllBooks);
 // to get sorted books in ascending
 router.get('/search', userAuth, booksController.searchBook);
 
-// to get books greater than price
-router.get('/agr',userAuth, booksController.getHigherPriceBooks);
-
 // to get sorted books in ascending
 router.get('/:sort', userAuth, booksController.getSortedBooks);
 

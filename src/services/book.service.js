@@ -11,14 +11,12 @@ export const getAllBooks = async (req) => {
   if (book) {
     const books = JSON.stringify(book)
     await client.set(req.body.user_id, books)
-    await client.expire(req.body.user_id,10)
     return book.slice(skip,skip + limit);
   };
   throw new Error("Unable to find");
 };
 
-
-export const getSortedBooks = async (sort) => {
+export const getSortedBooks = async (sort= 'asc') => {
   let books;
   if(sort == 'asc'){
     books = await Book.find().sort({ price: 1 });
@@ -32,18 +30,14 @@ export const getSortedBooks = async (sort) => {
 export const searchBook = async (req) => {
 
   var reg = new RegExp(req.body.string, 'i')
-
   const books = await Book.find({bookName: reg})
   if(books)  return books;
-
   throw new Error("books note found");
-
 };
 
 export const getHigherPriceBooks = async (price) => {
 
   const books = await Book.aggregate([{ $match: { price: { $gte: price } } }]);
   if(books)  return books;
-
   throw new Error("books note found");
 };
