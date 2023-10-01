@@ -9,12 +9,12 @@ const router = express.Router();
 router.get('', userAuth, redisData, booksController.getAllBooks);
 
 // to get sorted books in ascending
-router.get('/search', userAuth, booksController.searchBook);
+router.post('/search', booksController.searchBook);
 
 // to get books greater than price
-router.get('/ghp',userAuth, booksController.getHigherPriceBooks);
+router.post('/ghp', booksController.getHigherPriceBooks);
 
 // to get sorted books in ascending
-router.get('/:sort', userAuth, booksController.getSortedBooks);
+router.get('/:sort', booksController.getSortedBooks);
 
 export default router;
