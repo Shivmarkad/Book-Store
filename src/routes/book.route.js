@@ -12,7 +12,7 @@ router.get('', userAuth, redisData, booksController.getAllBooks);
 router.post('/search', booksController.searchBook);
 
 // to get books greater than price
-router.post('/ghp', booksController.getHigherPriceBooks);
+router.post('/ghp/:price', booksController.getHigherPriceBooks);
 
 // to get sorted books in ascending
 router.get('/:sort', booksController.getSortedBooks);

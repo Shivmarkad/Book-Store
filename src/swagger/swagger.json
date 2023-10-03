@@ -212,20 +212,17 @@
           }
         }
       },
-      "/book/ghp": {
+      "/book/ghp/{price}": {
         "post": {
           "tags": ["Book Part"],
           "description": "Get Higher Price Books..",
           "produces": ["application/json"],
           "parameters": [
             {
-              "name": "Higher Price Books",
+              "name": "price",
               "required":true,
-              "in": "body",
-              "description": "Get Higher Price books...",
-              "schema": {
-                "$ref": "#/definitions/HPrice"
-              }
+              "in": "path",
+              "description": "Get Higher Price books..."
             }
           ],
           "responses": {
@@ -475,14 +472,6 @@
             "properties":{
                 "string":{
                     "type":"string"
-                }
-                }
-            },
-        "HPrice":{
-            "type":"object",
-            "properties":{
-                "price":{
-                    "type":"number"
                 }
                 }
             }

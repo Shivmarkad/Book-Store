@@ -55,7 +55,7 @@ export const searchBook = async (req, res, next) => {
 
 export const getHigherPriceBooks = async (req, res, next) => {
     try {
-      const data = await books.getHigherPriceBooks(req.body.price);
+      const data = await books.getHigherPriceBooks(req.params.price);
       
       res.status(HttpStatus.OK).json({
         code: HttpStatus.OK,

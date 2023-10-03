@@ -36,8 +36,8 @@ export const searchBook = async (req) => {
 };
 
 export const getHigherPriceBooks = async (price) => {
-
-  const books = await Book.aggregate([{ $match: { price: { $gte: price } } }]);
+  let getprice = parseInt(price)
+  const books = await Book.aggregate([{ $match: { price: { $gte: getprice } } }]);
   if(books)  return books;
   throw new Error("books note found");
 };
