@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
-
+import { sendMail } from '../utils/mail';
 //SignUp new user
 export const signUp = async (body) => {
 
@@ -59,10 +59,11 @@ export const resetPassword = async (password, id) => {
 //forgot password
 export const forgotPassword = async (email) => {
   
-  const data = await User.find({email: email  });
+  const data = await User.findOne({email: email  });
   if (data) {
     var token = jwt.sign({ email: data.email, id: data.id }, process.env.SECRET_KEY);
-    return token;
+    sendMail(data.email,token)
+    return "Token sent !!";
   } else {
     throw new Error("Unable to change Password");
   };
