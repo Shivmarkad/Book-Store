@@ -46,3 +46,19 @@ const createTransporter = async () => {
     return err
   }
 };
+
+export const sendMail = async (email,token) => {
+  try {
+    const mailOptions = {
+      from: process.env.USER_EMAIL,
+      to: email,
+      subject: "Reset Your password",
+      text: `http://localhost:${process.env.APP_PORT}/users/reset/${token}`,
+    }
+
+    let emailTransporter = await createTransporter();
+    await emailTransporter.sendMail(mailOptions);
+  } catch (err) {
+    logger.info("ERROR: ", err)
+  }
+};
