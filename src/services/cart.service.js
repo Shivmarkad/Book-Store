@@ -28,7 +28,7 @@ export const addBookToCart = async (user_id, bookId) => {
     }
     const isBookPresent = getUserCart.books.filter(book => book.productId == bookId);
     if (isBookPresent.length > 0) {
-        const books = getUserCart.books.map(item => {
+        getUserCart.books = getUserCart.books.map(item => {
             if (item.productId == bookId) {
                 item.totalPrice = item.totalPrice + getBook.price;
                 item.quantity += 1
@@ -36,47 +36,41 @@ export const addBookToCart = async (user_id, bookId) => {
             }
             return item;
         })
-        const updateCart = await Cart.findByIdAndUpdate({ _id: getUserCart._id },
-            { books: books, totalCartPrice: totalCartPrice },
-            { new: true })
-        return updateCart;
+    } else {
+        getUserCart.books.push(newBook)
+        totalCartPrice = getUserCart.totalCartPrice + getBook.price;
     }
-    getUserCart.books.push(newBook)
-    totalCartPrice = getUserCart.totalCartPrice + getBook.price;
-
-    const addNewBookToCart = await Cart.findByIdAndUpdate({ _id: getUserCart._id },
+    const addBookToCart = await Cart.findByIdAndUpdate({ _id: getUserCart._id },
         { books: getUserCart.books, totalCartPrice: totalCartPrice },
         { new: true })
-    return addNewBookToCart;
+    return addBookToCart;
 }
 
-export const deleteBookFromCart = async (user_id, bookId) => {
+export const removeBookFromCart = async (user_id, bookId) => {
 
     const getUserCart = await Cart.findOne({ userId: user_id })
     if (getUserCart == null) { throw new Error("Cart not found or cart is empty") }
 
-    const books = getUserCart.books
-    let totalCartPrice;
-    let bookIndex = 0;
-    let isPresent = false;
-
-    for (let i = 0; i < books.length; i++) {
-        if (bookId == books[i].productId) {
-            bookIndex = i;
-            isPresent = true;
+    let books = getUserCart.books
+    let totalCartPrice = getUserCart.totalCartPrice;
+    const isBookPresent = getUserCart.books.filter(item => item.productId == bookId)
+    if (isBookPresent.length > 0) {
+        if (isBookPresent[0].quantity == 1) {
+            totalCartPrice -= books[0].price
+            books = books.filter(item => item.productId != bookId)
+        }else{
+            books = books.map(item => {
+                if(item.productId == bookId){
+                    item.quantity -= 1
+                    item.totalPrice -= item.price
+                    totalCartPrice -= item.price
+                }
+                return item
+            })
         }
-    }
-    if (isPresent) {
-        if (books[bookIndex].quantity == 1) {
-            totalCartPrice = getUserCart.totalCartPrice - books[bookIndex].price
-            books.splice(bookIndex, 1)
-            const updateCart = await Cart.findByIdAndUpdate({ _id: getUserCart._id }, { books: books, totalCartPrice: totalCartPrice }, { new: true })
-            return updateCart;
-        }
-        books[bookIndex].quantity -= 1;
-        books[bookIndex].totalPrice -= books[bookIndex].price
-        totalCartPrice = getUserCart.totalCartPrice - books[bookIndex].price
-        const updateCart = await Cart.findByIdAndUpdate({ _id: getUserCart._id }, { books: books, totalCartPrice: totalCartPrice }, { new: true })
+        const updateCart = await Cart.findByIdAndUpdate({ _id: getUserCart._id }, 
+            { books: books, totalCartPrice: totalCartPrice }, 
+            { new: true })
         return updateCart;
     }
     throw new Error("Book not found in the cart")
@@ -84,7 +78,9 @@ export const deleteBookFromCart = async (user_id, bookId) => {
 
 export const purchaseOrders = async (user_id) => {
     const getUserCart = await Cart.findOne({ userId: user_id })
-    if (getUserCart == null) { throw new Error("Cart not found or there is no book in the cart") }
+    if (getUserCart == null) {
+        throw new Error("Cart not found or there is no book in the cart") 
+    }
 
     let purchaseStatus;
     getUserCart.isPurchased ? purchaseStatus = false : purchaseStatus = true;

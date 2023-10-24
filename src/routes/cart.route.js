@@ -14,6 +14,6 @@ router.post('/:bookId',userAuth,cartController.addBookToCart)
 router.put('',userAuth,cartController.purchaseOrders)
 
 //route to delet book from the cart
-router.put('/:bookId',userAuth,cartController.deleteBookFromCart)
+router.put('/:bookId',userAuth,cartController.removeBookFromCart)
 
 export default router;
