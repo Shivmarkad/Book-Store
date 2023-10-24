@@ -15,6 +15,6 @@ router.post('/search', booksController.searchBook);
 router.post('/ghp/:price', booksController.getHigherPriceBooks);
 
 // to get sorted books in ascending
-router.get('/:sort', booksController.getSortedBooks);
+router.get('/sort', booksController.getSortedBooks);
 
 export default router;

@@ -19,7 +19,7 @@ export const getAllBooks = async (req, res, next) => {
 
 export const getSortedBooks = async (req, res, next) => {
     try {
-      const data = await books.getSortedBooks(req.params.sort);
+      const data = await books.getSortedBooks(req);
       res.status(HttpStatus.OK).json({
         code: HttpStatus.OK,
         data: data,
@@ -42,9 +42,6 @@ export const searchBook = async (req, res, next) => {
         data: data,
         message: 'Searched Books fetched successfully'
       });
-
-
-
     } catch (error) {
       res.status(HttpStatus.BAD_REQUEST).json({
         code: HttpStatus.BAD_REQUEST,
