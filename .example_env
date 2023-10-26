@@ -1,0 +1,12 @@
+APP_HOST = your-app-host
+APP_PORT = port
+
+API_VERSION = app-version
+SECRET_KEY = 'your-secrete-key'
+DATABASE = main-database-url
+DATABASE_TEST = test-database-url
+
+USER_EMAIL='mail-id'
+REFRESH_TOKEN= "refres-token"
+CLIENT_SECRET="client-secret"
+CLIENT_ID="client-id"
