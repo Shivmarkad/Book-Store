@@ -9,7 +9,7 @@ git clone https://github.com/Shivmarkad/Book-Store.git
 ```
 **2 : Switch Directory**
 ```
-cd BOOK-STORE
+cd Book-Store
 ```
 
 **3 : Install packages**
