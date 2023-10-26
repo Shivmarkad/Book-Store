@@ -157,7 +157,7 @@
           }]
         }
       },
-      "/book/{sort}": {
+      "/book/sort": {
         "get": {
           "tags": ["Book Part"],
           "description": "Get Sorted Books by Price..",
@@ -165,9 +165,9 @@
           "parameters": [
             {
               "name": "sort",
-              "required":true,
-              "in": "path",
-              "description": "Sorted Ascending or Descending"
+              "in": "query",
+              "description": "Sorted Ascending or Descending",
+              "default" : "asc"
             }
           ],
           "responses": {
@@ -222,7 +222,8 @@
               "name": "price",
               "required":true,
               "in": "path",
-              "description": "Get Higher Price books..."
+              "description": "Get Higher Price books...",
+              "default" : 1
             }
           ],
           "responses": {
