@@ -6,7 +6,7 @@ export const addBookToCart = async (user_id, bookId) => {
     if (getBook == null || getBook.quantity <= 0) {
         throw new Error("Book not available or invalid book id")
     }
-    const getUserCart = await Cart.findOne({ userId: user_id })
+    const getUserCart = await fetchCartByUserID(user_id)
     let totalCartPrice;
     
     const newBook = {
@@ -48,7 +48,7 @@ export const addBookToCart = async (user_id, bookId) => {
 
 export const removeBookFromCart = async (user_id, bookId) => {
 
-    const getUserCart = await Cart.findOne({ userId: user_id })
+    const getUserCart = await fetchCartByUserID(user_id)
     if (getUserCart == null) { throw new Error("Cart not found or cart is empty") }
 
     let books = getUserCart.books
@@ -77,7 +77,7 @@ export const removeBookFromCart = async (user_id, bookId) => {
 }
 
 export const purchaseOrders = async (user_id) => {
-    const getUserCart = await Cart.findOne({ userId: user_id })
+    const getUserCart = await fetchCartByUserID(user_id)
     if (getUserCart == null) {
         throw new Error("Cart not found or there is no book in the cart") 
     }
@@ -91,10 +91,14 @@ export const purchaseOrders = async (user_id) => {
     throw new Error("Unable to purchase server error")
 }
 
-export const getCart = async (user_id) => {
-    const getUserCart = await Cart.findOne({ userId: user_id })
+export const getCartByUserId = async (user_id) => {
+    const getUserCart = await fetchCartByUserID(user_id)
     if (getUserCart == null) {
         throw new Error("Cart not found or cart is empty")
     }
     return getUserCart;
+}
+
+function fetchCartByUserID(userId){
+    return Cart.findOne({userId: userId})
 }
