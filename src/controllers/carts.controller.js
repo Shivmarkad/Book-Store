@@ -54,7 +54,7 @@ export const purchaseOrders = async (req, res, next) => {
 
 export const getCart = async (req, res, next) => {
     try{
-        const data = await cart.getCart(req.body.user_id);
+        const data = await cart.getCartByUserId(req.body.user_id);
         res.status(HttpStatus.OK).json({
             code:HttpStatus.OK,
             data:data,
