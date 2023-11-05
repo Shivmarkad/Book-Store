@@ -3,7 +3,9 @@ import Wishlist from '../models/wishlist.model'
 
 export const addBookToWishList = async (userId, bookId) => {
     const getBook = await Book.findOne({ _id: bookId })
+
     if (getBook == null) { throw new Error("invalid book id") }
+
     const newBook = {
         productId: getBook._id,
         description: getBook.description,
@@ -12,13 +14,15 @@ export const addBookToWishList = async (userId, bookId) => {
         author: getBook.author,
         price: getBook.price
     }
-    const userWishList = await Wishlist.findOne({ userId: userId });
+    const userWishList = await getWishlist( userId );
+
     if (userWishList == null) {
         const newUserWishList = { userId: userId, books: [newBook] }
         const createdWishlist = await Wishlist.create(newUserWishList);
         return createdWishlist;
     }
     const books = userWishList.books;
+
     for (let i in books) {
         if (books[i].productId == bookId) {
             throw new Error("Book is already in the wishlist !!")
@@ -30,7 +34,8 @@ export const addBookToWishList = async (userId, bookId) => {
 }
 
 export const removeBookFromWishList = async (userId, bookId)=>{
-    const userWishList = await Wishlist.findOne({userId: userId});
+
+    const userWishList = await getWishlist(userId);
     if(userWishList == null){ throw new Error("Wishlist is Empty!!")}
 
     const books = userWishList.books;
@@ -46,8 +51,5 @@ export const removeBookFromWishList = async (userId, bookId)=>{
 
 export const getWishlist = async (user_id) => {
     const getUserWishlist = await Wishlist.findOne({ userId: user_id })
-    if (getUserWishlist == null) {
-        throw new Error("Wishlist not found or wishlist is empty") 
-    }
     return getUserWishlist;
 }
