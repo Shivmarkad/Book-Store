@@ -22,7 +22,7 @@ export const signUp = async (body) => {
   } else { throw new Error("Unable to register !!") }
 };
 
-//SignUp new user
+//SignIn user
 export const signIn = async (body) => {
 
   const user = await User.findOne({ email: body.email });
