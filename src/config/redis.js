@@ -1,6 +1,8 @@
 import { createClient } from 'redis';
 import logger from '../config/logger';
-export const client = createClient();
+import dotenv from 'dotenv';
+dotenv.config();
+export const client = createClient({url: process.env.REDIS_URL});
 
 const redis = async () => {
     try {
